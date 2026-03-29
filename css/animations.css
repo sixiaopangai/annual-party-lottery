@@ -1,0 +1,123 @@
+/* ========================================
+   动画效果系统
+   ======================================== */
+
+/* 淡入 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 从下方滑入 */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 从上方滑入 */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 缩放弹出 */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* 中奖者揭晓 — 缩放 + 光晕 */
+@keyframes winnerReveal {
+  0% { opacity: 0; transform: scale(0.3); filter: brightness(3); }
+  50% { opacity: 1; transform: scale(1.1); filter: brightness(1.5); }
+  70% { transform: scale(0.95); filter: brightness(1.1); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+/* 金色光晕脉冲 */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(201, 168, 76, 0.2); }
+  50% { box-shadow: 0 0 50px rgba(201, 168, 76, 0.5), 0 0 80px rgba(201, 168, 76, 0.2); }
+}
+
+/* 姓名滚动 — 垂直 */
+@keyframes nameScroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}
+
+/* 3D 透视翻转 */
+@keyframes flipIn {
+  0% { opacity: 0; transform: perspective(800px) rotateX(90deg); }
+  60% { transform: perspective(800px) rotateX(-10deg); }
+  100% { opacity: 1; transform: perspective(800px) rotateX(0); }
+}
+
+/* 粒子散射 */
+@keyframes particleBurst {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--tx, 100px), var(--ty, -100px)) scale(0); }
+}
+
+/* 浮动动画 */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* 旋转闪烁 */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* 弹幕滑动 */
+@keyframes danmakuSlide {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
+/* 数字滚动 */
+@keyframes countUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* 背景渐变呼吸 */
+@keyframes bgBreath {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* === 动画工具类 === */
+
+.animate-fade-in { animation: fadeIn 0.5s ease forwards; }
+.animate-slide-up { animation: slideUp 0.6s ease forwards; }
+.animate-slide-down { animation: slideDown 0.6s ease forwards; }
+.animate-scale-in { animation: scaleIn 0.5s var(--transition-spring) forwards; }
+.animate-winner { animation: winnerReveal 0.8s ease forwards; }
+.animate-glow { animation: glowPulse 2s ease-in-out infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-flip { animation: flipIn 0.6s ease forwards; }
+
+/* 闪光文字 */
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary) 0%,
+    var(--accent-glow) 40%,
+    var(--accent-primary) 80%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+/* 延迟工具 */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }

@@ -1,0 +1,97 @@
+/* ========================================
+   Apple 风格设计系统 CSS 变量
+   ======================================== */
+
+:root {
+  /* === 配色系统 === */
+
+  /* 背景色层级 */
+  --bg-primary: #0c0c0e;
+  --bg-secondary: #1c1c1e;
+  --bg-surface: #2c2c2e;
+  --bg-elevated: #3a3a3c;
+
+  /* 分割与边框 */
+  --border-color: #38383a;
+  --border-subtle: #2c2c2e;
+
+  /* 强调色 — 琥珀金系列 */
+  --accent-primary: #c9a84c;
+  --accent-secondary: #d4af61;
+  --accent-gradient-start: #c9a84c;
+  --accent-gradient-end: #e8cc73;
+  --accent-glow: #f5d77a;
+
+  /* 功能色 — Apple 系统色 */
+  --color-blue: #0a84ff;
+  --color-green: #30d158;
+  --color-orange: #ff9f0a;
+  --color-red: #ff453a;
+  --color-purple: #bf5af2;
+  --color-teal: #64d2ff;
+
+  /* 文字色 */
+  --text-primary: #f5f5f7;
+  --text-secondary: #86868b;
+  --text-tertiary: #48484a;
+  --text-accent: #c9a84c;
+
+  /* === 字体系统 === */
+  --font-display: 'Outfit', -apple-system, 'SF Pro Display', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-body: 'Inter', -apple-system, 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+  /* 字号 */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.8125rem;  /* 13px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.5rem;     /* 24px */
+  --text-2xl: 2rem;      /* 32px */
+  --text-3xl: 2.5rem;    /* 40px */
+  --text-4xl: 3rem;      /* 48px */
+  --text-5xl: 4rem;      /* 64px */
+
+  /* 字重 */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* === 毛玻璃系统 === */
+  --glass-bg-light: rgba(255, 255, 255, 0.05);
+  --glass-bg-medium: rgba(255, 255, 255, 0.08);
+  --glass-bg-heavy: rgba(255, 255, 255, 0.12);
+  --glass-blur-light: blur(20px);
+  --glass-blur-medium: blur(40px);
+  --glass-blur-heavy: blur(60px);
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  /* === 阴影系统 === */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 40px rgba(201, 168, 76, 0.15);
+  --shadow-glow-strong: 0 0 60px rgba(201, 168, 76, 0.3);
+
+  /* === 圆角 === */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* === 间距 === */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* === 过渡 === */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}

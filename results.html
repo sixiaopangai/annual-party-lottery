@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中奖名单</title>
+  <meta name="description" content="年会抽奖中奖名单">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/glass.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/results.css">
+</head>
+<body>
+  <div class="results-page">
+    <!-- 导航 -->
+    <nav class="results-nav glass-nav">
+      <a href="index.html" class="glass-btn glass-btn--sm">返回抽奖</a>
+      <h1 class="results-title">中奖名单</h1>
+      <div class="results-actions">
+        <button class="glass-btn glass-btn--sm" id="btn-export-csv">导出 CSV</button>
+        <button class="glass-btn glass-btn--sm" id="btn-export-json">导出 JSON</button>
+        <a href="admin.html" class="glass-btn glass-btn--sm">管理后台</a>
+      </div>
+    </nav>
+
+    <!-- 中奖统计 -->
+    <section class="results-stats" id="results-stats">
+      <div class="stat-card glass-card animate-slide-up">
+        <span class="stat-value" id="stat-total-winners">0</span>
+        <span class="stat-label">中奖总人数</span>
+      </div>
+      <div class="stat-card glass-card animate-slide-up delay-100">
+        <span class="stat-value" id="stat-total-prizes">0</span>
+        <span class="stat-label">已抽奖项</span>
+      </div>
+      <div class="stat-card glass-card animate-slide-up delay-200">
+        <span class="stat-value" id="stat-total-remaining">0</span>
+        <span class="stat-label">剩余人员</span>
+      </div>
+    </section>
+
+    <!-- 中奖记录列表 -->
+    <section class="results-list" id="results-list"></section>
+
+    <!-- 空状态 -->
+    <div class="empty-state" id="results-empty" style="display: none;">
+      <p style="font-size: var(--text-2xl); margin-bottom: var(--space-md);">🎲</p>
+      <p>尚未产生中奖记录</p>
+      <a href="index.html" class="glass-btn glass-btn--primary" style="margin-top: var(--space-lg);">前往抽奖</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { StorageManager } from '/js/storage.js';
+    import { ExportManager } from '/js/export.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      StorageManager.init();
+      renderResults();
+
+      document.getElementById('btn-export-csv').addEventListener('click', () => {
+        const records = StorageManager.getWinners();
+        ExportManager.toCSV(records, `中奖名单_${new Date().toISOString().slice(0, 10)}`);
+      });
+
+      document.getElementById('btn-export-json').addEventListener('click', () => {
+        const records = StorageManager.getWinners();
+        ExportManager.toJSON(records, `中奖名单_${new Date().toISOString().slice(0, 10)}`);
+      });
+    });
+
+    function renderResults() {
+      const records = StorageManager.getWinners();
+      const participants = StorageManager.getParticipants();
+      const available = StorageManager.getAvailableParticipants();
+
+      // 统计
+      const totalWinners = records.reduce((sum, r) => sum + r.winners.length, 0);
+      const uniquePrizes = new Set(records.map(r => r.prizeId)).size;
+
+      document.getElementById('stat-total-winners').textContent = totalWinners;
+      document.getElementById('stat-total-prizes').textContent = uniquePrizes;
+      document.getElementById('stat-total-remaining').textContent = available.length;
+
+      if (records.length === 0) {
+        document.getElementById('results-empty').style.display = 'block';
+        document.getElementById('results-list').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('results-empty').style.display = 'none';
+      document.getElementById('results-list').style.display = 'block';
+
+      // 按奖项分组
+      const grouped = {};
+      records.forEach(r => {
+        const key = r.prizeId;
+        if (!grouped[key]) {
+          grouped[key] = {
+            level: r.prizeLevel,
+            name: r.prizeName,
+            winners: [],
+          };
+        }
+        grouped[key].winners.push(...r.winners.map(w => ({
+          ...w,
+          time: new Date(r.timestamp).toLocaleTimeString('zh-CN'),
+        })));
+      });
+
+      const list = document.getElementById('results-list');
+      list.innerHTML = Object.values(grouped).map((group, idx) => `
+        <div class="result-group animate-slide-up" style="animation-delay: ${idx * 100}ms;">
+          <div class="result-group-header">
+            <span class="glass-badge glass-badge--gold">${group.level}</span>
+            <span class="result-group-name">${group.name}</span>
+            <span class="result-group-count">${group.winners.length} 人</span>
+          </div>
+          <div class="result-winners">
+            ${group.winners.map(w => `
+              <div class="result-winner-card glass-card">
+                <div class="result-avatar">
+                  ${w.avatar
+                    ? `<img src="${w.avatar}" alt="${w.name}">`
+                    : `<span>${w.name.charAt(0)}</span>`
+                  }
+                </div>
+                <div class="result-info">
+                  <div class="result-name">${w.name}</div>
+                  <div class="result-dept">${w.department || ''}</div>
+                </div>
+                <div class="result-time">${w.time}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>

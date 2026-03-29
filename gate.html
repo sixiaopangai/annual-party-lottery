@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理员签到码 - 年会抽奖</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/glass.css">
+  <style>
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(201, 168, 76, 0.18), transparent 32%),
+        linear-gradient(180deg, #0c0c0e, #15161a 58%, #171718);
+      color: var(--text-primary);
+      padding: var(--space-lg);
+    }
+    .gate-page {
+      max-width: 520px;
+      margin: 0 auto;
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .gate-card {
+      padding: var(--space-xl);
+      text-align: center;
+    }
+    .gate-title {
+      font-size: var(--text-2xl);
+      color: var(--accent-primary);
+      font-weight: var(--weight-bold);
+    }
+    .gate-subtitle {
+      margin-top: var(--space-sm);
+      color: var(--text-secondary);
+      font-size: var(--text-sm);
+      line-height: 1.7;
+    }
+    .gate-qrcode {
+      display: flex;
+      justify-content: center;
+      margin: var(--space-lg) 0;
+    }
+    .gate-stats {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .gate-stat {
+      flex: 1;
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .gate-stat strong {
+      display: block;
+      font-size: var(--text-xl);
+      color: var(--accent-primary);
+      margin-bottom: var(--space-xs);
+    }
+    .gate-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .gate-person {
+      padding: var(--space-md);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: grid;
+      gap: var(--space-sm);
+      justify-items: center;
+    }
+    .gate-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+    }
+    .gate-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gate-name {
+      font-size: var(--text-sm);
+      font-weight: var(--weight-medium);
+    }
+    .gate-time {
+      font-size: var(--text-xs);
+      color: var(--text-tertiary);
+    }
+  </style>
+</head>
+<body>
+  <main class="gate-page">
+    <section class="glass-card--medium gate-card">
+      <h1 class="gate-title" id="gate-activity-title">管理员签到码</h1>
+      <p class="gate-subtitle">请在入口处向参与者展示此二维码。参与者扫码后填写昵称和头像即可进入抽奖池，大屏和后台会实时同步签到结果。</p>
+      <div class="gate-qrcode" id="gate-qrcode"></div>
+      <div class="gate-stats">
+        <div class="gate-stat">
+          <strong id="gate-sign-count">0</strong>
+          <span>已签到</span>
+        </div>
+        <div class="gate-stat">
+          <strong id="gate-online-count">0</strong>
+          <span>在线端数</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="glass-card gate-card">
+      <h2 class="gate-title" style="font-size: var(--text-xl);">最近签到</h2>
+      <div class="gate-list" id="gate-checkin-list"></div>
+    </section>
+  </main>
+
+  <script type="module" src="/js/gate.js"></script>
+</body>
+</html>

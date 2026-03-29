@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活动签到 - 年会抽奖</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/glass.css">
+  <style>
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: var(--space-xl);
+    }
+    .sign-card {
+      width: 100%;
+      max-width: 400px;
+      padding: var(--space-2xl);
+    }
+    .sign-header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+    .sign-title {
+      font-size: var(--text-2xl);
+      font-weight: var(--weight-bold);
+      margin-bottom: var(--space-sm);
+      color: var(--accent-primary);
+    }
+    .sign-subtitle {
+      color: var(--text-secondary);
+      font-size: var(--text-sm);
+      line-height: 1.7;
+    }
+    .form-group {
+      margin-bottom: var(--space-lg);
+    }
+    .form-label {
+      display: block;
+      margin-bottom: var(--space-sm);
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+    .glass-input {
+      width: 100%;
+    }
+    .sign-hint {
+      margin-top: var(--space-lg);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+      font-size: var(--text-xs);
+      line-height: 1.7;
+    }
+    .success-info {
+      display: none;
+      text-align: center;
+    }
+    .success-icon {
+      font-size: 4rem;
+      margin-bottom: var(--space-lg);
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="sign-card glass-card--medium">
+    <div id="sign-form-container">
+      <div class="sign-header">
+        <h1 class="sign-title" id="activity-name">现场签到</h1>
+        <p class="sign-subtitle">欢迎来到活动现场，请填写昵称并上传头像完成签到。未上传头像时，大屏会自动显示昵称首字。</p>
+      </div>
+      <form id="sign-form">
+        <div class="form-group">
+          <label class="form-label">昵称 *</label>
+          <input type="text" id="input-name" class="glass-input" placeholder="请输入昵称" required maxlength="20">
+        </div>
+        <div class="form-group">
+          <label class="form-label">头像</label>
+          <input type="file" id="input-avatar" class="glass-input" accept="image/*">
+        </div>
+        <button type="submit" class="glass-btn glass-btn--primary" style="width: 100%; margin-top: var(--space-xl);">
+          立即签到
+        </button>
+        <div class="sign-hint">
+          微信授权昵称/头像能力已预留。当前未接入正式微信 OAuth 配置时，请先手动填写昵称并可选上传头像。
+        </div>
+      </form>
+    </div>
+
+    <div id="success-container" class="success-info">
+      <span class="success-icon">✅</span>
+      <h2 class="sign-title">签到成功！</h2>
+      <p class="sign-subtitle">您已进入抽奖池，请留意现场大屏和主持人口播结果。</p>
+      <button class="glass-btn" onclick="location.reload()" style="margin-top: var(--space-2xl);">返回</button>
+    </div>
+  </div>
+
+  <script type="module" src="/js/sign.js"></script>
+</body>
+</html>

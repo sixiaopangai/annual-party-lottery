@@ -1,0 +1,12 @@
+node_modules/
+dist/
+
+data/server-state.json
+
+.codex-start.out.log
+.codex-start.err.log
+.git-template-empty/
+
+task_plan.md
+findings.md
+progress.md

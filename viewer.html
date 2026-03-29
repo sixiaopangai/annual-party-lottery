@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>观众端 - 年会抽奖实况</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/glass.css">
+  <style>
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .viewer-container {
+      flex: 1;
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .status-badge {
+      margin-bottom: var(--space-lg);
+    }
+    .viewer-meta {
+      display: grid;
+      gap: var(--space-sm);
+      justify-items: center;
+      margin-bottom: var(--space-xl);
+    }
+    .viewer-activity-title {
+      font-size: var(--text-lg);
+      color: var(--text-secondary);
+    }
+    .prize-display {
+      margin-bottom: var(--space-2xl);
+    }
+    .prize-name {
+      font-size: var(--text-3xl);
+      font-weight: var(--weight-bold);
+      color: var(--accent-primary);
+      margin-top: var(--space-sm);
+    }
+    .rolling-placeholder {
+      font-size: var(--text-xl);
+      color: var(--text-secondary);
+      font-style: italic;
+      animation: pulse 1.5s infinite;
+      display: none;
+    }
+    .winner-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      justify-content: center;
+      margin-top: var(--space-xl);
+    }
+    .winner-item {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--glass-bg-medium);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--accent-primary);
+      animation: zoomIn 0.3s ease forwards;
+    }
+    .danmaku-form {
+      padding: var(--space-lg);
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+      display: flex;
+      gap: var(--space-md);
+    }
+    .danmaku-input {
+      flex: 1;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body>
+  <div class="viewer-container">
+    <div class="viewer-meta">
+      <div class="viewer-activity-title" id="viewer-activity-title">观众端实时同步</div>
+      <div class="status-badge glass-badge" id="status-text">等待开奖</div>
+      <div class="glass-badge" id="viewer-presence">在线 0</div>
+    </div>
+    
+    <div class="prize-display" id="prize-info">
+      <div class="prize-level" id="view-prize-level" style="font-size: var(--text-sm); color: var(--text-secondary);">--</div>
+      <div class="prize-name" id="view-prize-name">加载中...</div>
+    </div>
+
+    <div id="view-rolling" class="rolling-placeholder">正在抽奖中...</div>
+    
+    <div id="view-winners" class="winner-list">
+      <!-- 实时同步中奖名单 -->
+    </div>
+  </div>
+
+  <form class="danmaku-form" id="danmaku-form">
+    <input type="text" id="danmaku-text" class="glass-input danmaku-input" placeholder="发条弹幕参与互动吧..." maxlength="30">
+    <button type="submit" class="glass-btn glass-btn--primary">发送</button>
+  </form>
+
+  <script type="module" src="/js/viewer.js"></script>
+</body>
+</html>
